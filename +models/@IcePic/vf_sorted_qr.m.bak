@@ -1,0 +1,14 @@
+function vf = vf_sorted_qr(obj,temp,cs)
+
+	fwd = obj.forward_rate(temp);
+	bwd = obj.backward_rate(temp);
+
+	cM = (2.500000e+00*cs(1)+cs(2)+cs(3)+cs(4)+1.200000e+01*cs(5)+cs(6));
+
+	vf = [sum(sort([-fwd(1)*cs(1)*cs(3),-fwd(2)*cs(1)*cs(4),-fwd(4)*cs(1)*cM,bwd(1)*cs(2)*cs(4),bwd(2)*cs(5)*cs(2),bwd(4)*cs(2)^2*cM],'ComparisonMethod','abs'));
+				sum(sort([-fwd(6)*cM*cs(2)*cs(4),-fwd(5)*cM*cs(3)*cs(2),-bwd(4)*2*cM*cs(2)^2,-bwd(2)*cs(5)*cs(2),-bwd(1)*cs(2)*cs(4),fwd(4)*2*cM*cs(1),fwd(2)*cs(1)*cs(4),fwd(1)*cs(3)*cs(1),bwd(6)*cM*cs(5),bwd(5)*cM*cs(4)],'ComparisonMethod','abs'));
+				sum(sort([-fwd(1)*cs(3)*cs(1),-fwd(3)*cs(3)*cs(5),-fwd(5)*cM*cs(3)*cs(2),bwd(1)*cs(2)*cs(4),bwd(3)*cs(4)^2,bwd(5)*cM*cs(4)],'ComparisonMethod','abs'));
+				sum(sort([-fwd(6)*cM*cs(2)*cs(4),-fwd(2)*cs(1)*cs(4),-bwd(5)*cM*cs(4),-bwd(3)*2*cs(4)^2,-bwd(1)*cs(2)*cs(4),fwd(5)*cM*cs(3)*cs(2),fwd(3)*2*cs(3)*cs(5),fwd(1)*cs(3)*cs(1),bwd(6)*cM*cs(5),bwd(2)*cs(5)*cs(2)],'ComparisonMethod','abs'));
+				sum(sort([-fwd(3)*cs(3)*cs(5),-bwd(6)*cM*cs(5),-bwd(2)*cs(5)*cs(2),fwd(6)*cM*cs(2)*cs(4),fwd(2)*cs(1)*cs(4),bwd(3)*cs(4)^2],'ComparisonMethod','abs'));
+				0.0];
+end

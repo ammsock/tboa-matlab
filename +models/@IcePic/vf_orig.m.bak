@@ -1,0 +1,11 @@
+function vf = vf_orig(obj,temp,cs)
+
+	qr = obj.progress_rate(temp,cs);
+
+	vf = [-qr(1)-qr(2)-qr(4);
+				+qr(1)+qr(2)+2*qr(4)-qr(5)-qr(6);
+				-qr(1)-qr(3)-qr(5);
+				+qr(1)-qr(2)+2*qr(3)+qr(5)-qr(6);
+				+qr(2)-qr(3)+qr(6);
+				0.0];
+end

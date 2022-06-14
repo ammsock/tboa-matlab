@@ -1,0 +1,30 @@
+function [ts,xs] = simulate(obj,tspan,x0)
+
+	options = odeset('BDF','on');
+
+	tic
+	[ts,xs] = ode15s(@vectorfield, tspan, x0, options);
+	
+	if lastwarn
+		warning('off','last')
+	end
+
+	% if obj.isotherm
+	% 	[ts,cs] = ode15s(@(t,c) obj.vectorfield(x0(1),c), tspan, x0(2:end), options);
+	% 	Ts = x0(1)*ones(size(ts));
+	% 	xs = [Ts, cs];
+
+	% elseif obj.adiabatic
+	% 	[ts,xs] = ode15s(@(t,x) obj.vectorfield(x(1),x(2:end)), tspan, x0, options);
+	% end
+
+	function vf = vectorfield(t,x)
+		max_time = 80;
+		if toc > max_time
+			disp(toc)
+			% error(['simulate.m: Time exceeded (',num2str(max_time),' s)'])
+			error('CustomError:TimeExceeded','Error: simulate.m: Time exceeded (',num2str(max_time),' s)')
+		end
+		vf = obj.vectorfield(x)';
+	end
+end
